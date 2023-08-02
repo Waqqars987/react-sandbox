@@ -1,11 +1,11 @@
 import React, { Suspense, lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-// import Counter from './pages/Counter';
 import Home from './pages/Home';
 import JotaiExample from './pages/JotaiExample';
 import Posts from './pages/Posts';
 import Post from './components/Post';
+import SearchParams from './pages/SearchParams';
 
 const Counter = lazy(() => import('./pages/Counter'));
 
@@ -34,6 +34,7 @@ function AppRoutes() {
 					</Suspense>
 				}
 			/>
+			<Route path='/search-params' element={<SearchParams />} />
 			<Route path='*' element={<h1>404</h1>} />
 		</Routes>
 	);

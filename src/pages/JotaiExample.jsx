@@ -3,7 +3,7 @@ import { useAtom } from 'jotai';
 
 import { count as countAtom, posts as postAtom } from '../atoms';
 
-function Test() {
+function Jotai() {
 	const [count, setCount] = useAtom(countAtom);
 	const [post] = useAtom(postAtom);
 
@@ -26,4 +26,4 @@ function Test() {
 	);
 }
 
-export default Test;
+export default Jotai;
