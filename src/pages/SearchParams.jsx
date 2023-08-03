@@ -17,11 +17,11 @@ function SearchParams() {
 			<form onSubmit={onSubmit}>
 				<fieldset>
 					<legend>Enter Query Params</legend>
-					<div>
+					<div role='group'>
 						<label htmlFor='limit'>Limit</label>
 						<input type='number' name='limit' id='limit' />
 					</div>
-					<div>
+					<div role='group'>
 						<label htmlFor='skip'>Skip</label>
 						<input type='number' name='skip' id='skip' />
 					</div>
