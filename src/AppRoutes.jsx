@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Outlet, Navigate } from 'react-router-dom';
 
 import Home from './pages/Home';
 import JotaiExample from './pages/JotaiExample';
@@ -8,6 +8,8 @@ import Post from './components/Post';
 import SearchParams from './pages/SearchParams';
 
 const Counter = lazy(() => import('./pages/Counter'));
+
+const RequireAuth = ({ isAuth }) => (isAuth ? <Outlet /> : <Navigate to='/' replace={true} />);
 
 function AppRoutes() {
 	return (
@@ -35,6 +37,12 @@ function AppRoutes() {
 				}
 			/>
 			<Route path='/search-params' element={<SearchParams />} />
+
+			<Route element={<RequireAuth isAuth={false} />}>
+				<Route path='/test-1' element={<h1>test 1</h1>} />
+				<Route path='/test-2' element={<h1>test 2</h1>} />
+			</Route>
+
 			<Route path='*' element={<h1>404</h1>} />
 		</Routes>
 	);
