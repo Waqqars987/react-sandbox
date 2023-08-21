@@ -40,17 +40,15 @@ const Grid = () => {
 				defaultColDef={defaultColDef}
 				onGridReady={onGridReady}
 				groupAllowUnbalanced={true}
+				suppressContextMenu
 				autoGroupColumnDef={{
 					flex: 1,
 					field: 'country',
 					cellRendererParams: {
 						suppressCount: true
-					},
-					cellRendererSelector: ({ node }) =>
-						node.allChildrenCount > 1
-							? { component: 'agGroupCellRenderer' }
-							: { component: 'agCellRenderer' }
+					}
 				}}
+				groupRemoveSingleChildren
 			/>
 
 			<article style={{ marginTop: '2rem' }}>
