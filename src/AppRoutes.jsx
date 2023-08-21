@@ -6,6 +6,7 @@ import JotaiExample from './pages/JotaiExample';
 import Posts from './pages/Posts';
 import Post from './components/Post';
 import SearchParams from './pages/SearchParams';
+import Grid from './components/Grid';
 
 const Counter = lazy(() => import('./pages/Counter'));
 
@@ -37,6 +38,7 @@ function AppRoutes() {
 				}
 			/>
 			<Route path='/search-params' element={<SearchParams />} />
+			<Route path='/grid' element={<Grid />} />
 
 			<Route element={<RequireAuth isAuth={false} />}>
 				<Route path='/test-1' element={<h1>test 1</h1>} />

@@ -9,6 +9,9 @@
 	padding: 0;
 }
 
-body {
-	min-height: 100vh;
+html,
+body,
+#root,
+#main-content {
+	height: 100%;
 }

@@ -8,7 +8,8 @@ const links = [
 	{ name: 'Counter', to: '/counter' },
 	{ name: 'Posts', to: '/posts' },
 	{ name: 'Jotai', to: '/jotai' },
-	{ name: 'Search Params', to: '/search-params' }
+	{ name: 'Search Params', to: '/search-params' },
+	{ name: 'Grid', to: '/grid' }
 ];
 
 function Navbar() {
