@@ -9,7 +9,8 @@
 		"gold": 8,
 		"silver": 0,
 		"bronze": 0,
-		"total": 8
+		"total": 8,
+		"isVisible": true
 	},
 	{
 		"athlete": "Michael Phelps",
