@@ -1,4 +1,4 @@
-import './skiplink.css';
+import './skiplink.scss';
 
 function SkipLink() {
 	return (

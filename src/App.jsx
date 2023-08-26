@@ -1,10 +1,13 @@
 import Navbar from './components/Navbar';
 import SkipLink from './components/SkipLink';
 import AppRoutes from './AppRoutes';
+import CssBaseline from '@mui/material/CssBaseline';
 
 function App() {
 	return (
 		<>
+			<CssBaseline />
+
 			<SkipLink />
 
 			<Navbar />

@@ -1,0 +1,21 @@
+.navbar {
+	margin: 0;
+	margin-bottom: 1em;
+	padding: 1em;
+	border-bottom: 4px solid crimson;
+
+	* {
+		margin: 0;
+		padding: 0;
+	}
+
+	.navitems {
+		display: flex;
+		list-style: none;
+		gap: 2em;
+	}
+
+	.navitems a.active {
+		color: goldenrod;
+	}
+}
