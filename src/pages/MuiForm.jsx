@@ -1,74 +1,86 @@
+import { useState } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Stack, TextField } from '@mui/material';
-import { useForm } from 'react-hook-form';
+import { useController, useForm, useWatch } from 'react-hook-form';
 import * as yup from 'yup';
 
+import './muiForm.scss';
+
 const validationSchema = yup.object({
-	username: yup.string().required('Username is required'),
-	email: yup.string().email('Email format is not valid').required('Email is required'),
-	channel: yup.string().required('Channel is required')
+	username: yup.string().trim().required('Username is required'),
+	email: yup
+		.string()
+		.trim()
+		.email('Email format is not valid')
+		.when('$showEmail', (showEmail, schema) => (showEmail[0] ? schema.required('Email is required') : schema))
 });
 
+const TextInput = ({ name, control, ...rest }) => {
+	const {
+		field: { ref, ...restField },
+		fieldState: { invalid, error }
+	} = useController({
+		name,
+		control
+	});
+
+	return <TextField error={invalid} helperText={error?.message} {...restField} {...rest} />;
+};
+
+const getElements = showEmail => [
+	{
+		label: 'Username',
+		type: 'text',
+		name: 'username'
+	},
+	...(showEmail
+		? [
+				{
+					label: 'Email',
+					type: 'email',
+					name: 'email'
+				}
+		  ]
+		: [])
+];
+
 const MuiForm = () => {
-	const { register, handleSubmit, formState, reset, trigger } = useForm({
+	const [showEmail, setShowEmail] = useState(false);
+	const { handleSubmit, control, reset } = useForm({
 		defaultValues: {
 			username: '',
-			email: '',
-			channel: ''
+			email: ''
 		},
 		resolver: yupResolver(validationSchema),
 		shouldFocusError: true,
-		mode: 'all'
+		mode: 'all',
+		shouldUnregister: true,
+		context: { showEmail }
 	});
-	const { errors } = formState;
-	console.log(formState);
+	const watchedUsername = useWatch({
+		control,
+		name: 'username'
+	});
 
 	const onSubmit = data => {
-		console.log('SUBMTI SUCCESSFUL!!');
 		console.log(data);
 	};
 
-	const onError = error => {
-		console.log('ERROR!!');
-		console.log(error);
-	};
+	console.log(watchedUsername);
 
 	return (
-		<form onSubmit={handleSubmit(onSubmit, onError)} noValidate>
+		<form onSubmit={handleSubmit(onSubmit)} noValidate>
 			<Stack spacing={2} useFlexGap width={400} sx={{ marginInline: 'auto' }}>
-				<TextField
-					label='Username'
-					type='text'
-					{...register('username')}
-					error={!!errors.username}
-					helperText={errors.username?.message}
-					variant='standard'
-				/>
-
-				<TextField
-					label='Email'
-					type='email'
-					{...register('email')}
-					error={!!errors.email}
-					helperText={errors.email?.message}
-					variant='filled'
-				/>
-
-				<TextField
-					label='Channel'
-					type='text'
-					{...register('channel')}
-					error={!!errors.channel}
-					helperText={errors.channel?.message}
-					variant='outlined'
-				/>
+				{getElements(showEmail).map(elem => (
+					<TextInput key={elem.name} {...elem} control={control} />
+				))}
 
 				<Stack direction='row' spacing={1} mt={2}>
-					<Button type='submit' variant='contained' color='primary'>
+					<Button type='submit' variant='contained' color='primary' className='submit-btn'>
 						Submit
 					</Button>
-					<Button type='button' variant='outlined' color='secondary' onClick={() => trigger()}>
-						Validate
+					<Button type='button' variant='outlined' color='secondary' onClick={() => setShowEmail(prev => !prev)}>
+						Toggle Email
 					</Button>
 					<Button type='reset' variant='text' color='warning' onClick={reset}>
 						Reset
@@ -80,3 +92,16 @@ const MuiForm = () => {
 };
 
 export default MuiForm;
+
+/* <Controller
+					name='requireEmail'
+					control={control}
+					render={({ field, fieldState: { invalid, error } }) => (
+						<>
+							<FormControl error={invalid}>
+								<FormControlLabel control={<Checkbox {...field} />} label='Need email?' />
+								<FormHelperText>{error?.message}</FormHelperText>
+							</FormControl>
+						</>
+					)}
+				/> */

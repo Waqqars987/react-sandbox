@@ -1,0 +1,8 @@
+.submit-btn {
+	&.MuiButton-root {
+		background-color: black;
+	}
+	&.MuiButton-root:hover {
+		background-color: yellowgreen;
+	}
+}
