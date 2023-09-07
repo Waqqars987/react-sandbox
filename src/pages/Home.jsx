@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 
 const Title = styled.h1`
@@ -6,11 +5,12 @@ const Title = styled.h1`
 	text-align: center;
 	color: palevioletred;
 `;
-function Home(props) {
+
+function Home() {
 	return (
 		<>
 			<Title tabIndex={0}>Home Page</Title>
-			<Title>Lorem ipsum dolor sit amet.</Title>
+			<Title>Styled Component Example</Title>
 		</>
 	);
 }

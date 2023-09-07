@@ -1,5 +1,6 @@
 import React from 'react';
 import { useAtom } from 'jotai';
+import { Box, Typography, Stack, Button, Divider } from '@mui/material';
 
 import { count as countAtom, posts as postAtom } from '../atoms';
 
@@ -8,21 +9,28 @@ function Jotai() {
 	const [post] = useAtom(postAtom);
 
 	return (
-		<section>
-			<h1>Jotai Count: {count}</h1>
-			<div>
-				<button style={{ padding: '1em 2em' }} onClick={() => setCount(c => c + 1)}>
+		<Box p={2}>
+			<Typography variant='h4' component={'h1'}>
+				Jotai Count: {count}
+			</Typography>
+
+			<Stack direction={'row'} spacing={2} my={2}>
+				<Button color='info' size='small' variant='contained' onClick={() => setCount(c => c + 1)}>
 					+
-				</button>
-				<button style={{ padding: '1em 2em' }} onClick={() => setCount(c => c - 1)}>
+				</Button>
+				<Button color='error' size='smal' variant='contained' onClick={() => setCount(c => c - 1)}>
 					-
-				</button>
-			</div>
+				</Button>
+			</Stack>
 
-			<h2>Jotai Async Data</h2>
+			<Divider variant='middle' />
 
-			{JSON.stringify(post, null, 4)}
-		</section>
+			<Typography variant='h4' component={'h2'} my={2}>
+				Jotai Async Data
+			</Typography>
+
+			<Typography component='pre'>{JSON.stringify(post, null, 4)}</Typography>
+		</Box>
 	);
 }
 
