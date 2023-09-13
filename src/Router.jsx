@@ -1,12 +1,5 @@
 import React, { Suspense, lazy } from 'react';
-import {
-	createBrowserRouter,
-	createRoutesFromElements,
-	Route,
-	Outlet,
-	Navigate,
-	RouterProvider
-} from 'react-router-dom';
+import { createBrowserRouter, createRoutesFromElements, Route, Outlet, Navigate } from 'react-router-dom';
 
 import Home from './pages/Home';
 import JotaiExample from './pages/JotaiExample';
@@ -22,7 +15,7 @@ const Counter = lazy(() => import('./pages/Counter'));
 
 const RequireAuth = ({ isAuth }) => (isAuth ? <Outlet /> : <Navigate to='/' replace={true} />);
 
-const Router = createBrowserRouter(
+export const Router = createBrowserRouter(
 	createRoutesFromElements(
 		<Route path='/' element={<RootLayout />}>
 			<Route index element={<Home />} />
@@ -61,7 +54,3 @@ const Router = createBrowserRouter(
 		</Route>
 	)
 );
-
-const App = () => <RouterProvider router={Router} />;
-
-export default App;

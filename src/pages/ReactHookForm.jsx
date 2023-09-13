@@ -1,8 +1,7 @@
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { DevTool } from '@hookform/devtools';
-import { unstable_usePrompt } from 'react-router-dom';
-
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
+import { unstable_usePrompt as usePrompt } from 'react-router-dom';
 import * as yup from 'yup';
 
 // import { useBeforeUnload } from '../hooks/router';
@@ -36,9 +35,10 @@ const MuiForm = () => {
 		console.log('ERROR!!');
 		console.log(error);
 	};
-	unstable_usePrompt({
-		when: isDirty,
-		message: 'asdsad'
+
+	usePrompt({
+		when: () => isDirty,
+		message: 'Are you sure?'
 	});
 
 	// useBeforeUnload({
