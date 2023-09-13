@@ -1,8 +1,11 @@
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { DevTool } from '@hookform/devtools';
+import { unstable_usePrompt } from 'react-router-dom';
+
 import * as yup from 'yup';
 
+// import { useBeforeUnload } from '../hooks/router';
 import './reactHookForm.scss';
 
 const validationSchema = yup.object({
@@ -22,8 +25,7 @@ const MuiForm = () => {
 		shouldFocusError: true,
 		mode: 'all'
 	});
-	const { errors } = formState;
-	console.log(formState);
+	const { errors, isDirty } = formState;
 
 	const onSubmit = data => {
 		console.log('SUBMTI SUCCESSFUL!!');
@@ -34,6 +36,15 @@ const MuiForm = () => {
 		console.log('ERROR!!');
 		console.log(error);
 	};
+	unstable_usePrompt({
+		when: isDirty,
+		message: 'asdsad'
+	});
+
+	// useBeforeUnload({
+	// 	when: isDirty,
+	// 	message: 'Are you sure you want to leave?'
+	// });
 
 	return (
 		<div className='react-hook-form'>
