@@ -9,7 +9,7 @@ import SearchParams from './pages/SearchParams';
 import AgGrid from './pages/Grid';
 import RHF from './pages/ReactHookForm';
 import MuiForm from './pages/MuiForm';
-import RootLayout from './RootLayout';
+import App from './App';
 
 const Counter = lazy(() => import('./pages/Counter'));
 
@@ -17,7 +17,7 @@ const RequireAuth = ({ isAuth }) => (isAuth ? <Outlet /> : <Navigate to='/' repl
 
 export const Router = createBrowserRouter(
 	createRoutesFromElements(
-		<Route path='/' element={<RootLayout />}>
+		<Route path='/' element={<App />}>
 			<Route index element={<Home />} />
 			<Route
 				path='/counter'

@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Button, Stack, TextField } from '@mui/material';
-import { useController, useForm, useWatch } from 'react-hook-form';
+import { Button, FormControl, FormHelperText, FormLabel, Stack, TextField } from '@mui/material';
+import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
+import { useController, useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
 
 import './muiForm.scss';
+import dayjs from 'dayjs';
 
 const validationSchema = yup.object({
 	username: yup.string().trim().required('Username is required'),
@@ -12,7 +14,8 @@ const validationSchema = yup.object({
 		.string()
 		.trim()
 		.email('Email format is not valid')
-		.when('$showEmail', (showEmail, schema) => (showEmail[0] ? schema.required('Email is required') : schema))
+		.when('$showEmail', (showEmail, schema) => (showEmail[0] ? schema.required('Email is required') : schema)),
+	doj: yup.date().required('DOJ is required')
 });
 
 const TextInput = ({ name, control, ...rest }) => {
@@ -49,7 +52,8 @@ const MuiForm = () => {
 	const { handleSubmit, control, reset } = useForm({
 		defaultValues: {
 			username: '',
-			email: ''
+			email: '',
+			doj: null
 		},
 		resolver: yupResolver(validationSchema),
 		shouldFocusError: true,
@@ -57,16 +61,10 @@ const MuiForm = () => {
 		shouldUnregister: true,
 		context: { showEmail }
 	});
-	const watchedUsername = useWatch({
-		control,
-		name: 'username'
-	});
 
 	const onSubmit = data => {
 		console.log(data);
 	};
-
-	console.log(watchedUsername);
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} noValidate>
@@ -74,6 +72,18 @@ const MuiForm = () => {
 				{getElements(showEmail).map(elem => (
 					<TextInput key={elem.name} {...elem} control={control} />
 				))}
+
+				<Controller
+					name='doj'
+					control={control}
+					render={({ field, fieldState: { invalid, error } }) => (
+						<FormControl error={invalid} variant='outlined'>
+							<FormLabel required>Choose DOJ</FormLabel>
+							<DateCalendar {...field} disableFuture />
+							{error?.message && <FormHelperText>{error.message}</FormHelperText>}
+						</FormControl>
+					)}
+				/>
 
 				<Stack direction='row' spacing={1} mt={2}>
 					<Button type='submit' variant='contained' color='primary' className='submit-btn'>
@@ -92,16 +102,3 @@ const MuiForm = () => {
 };
 
 export default MuiForm;
-
-/* <Controller
-					name='requireEmail'
-					control={control}
-					render={({ field, fieldState: { invalid, error } }) => (
-						<>
-							<FormControl error={invalid}>
-								<FormControlLabel control={<Checkbox {...field} />} label='Need email?' />
-								<FormHelperText>{error?.message}</FormHelperText>
-							</FormControl>
-						</>
-					)}
-				/> */
