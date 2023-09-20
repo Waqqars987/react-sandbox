@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, FormControl, FormHelperText, FormLabel, Stack, TextField } from '@mui/material';
-import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
+// import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
+import { DatePicker, DateCalendar } from '@mui/x-date-pickers';
 import { useController, useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
 
@@ -53,7 +54,7 @@ const MuiForm = () => {
 		defaultValues: {
 			username: '',
 			email: '',
-			doj: null
+			doj: dayjs('09/20/2023')
 		},
 		resolver: yupResolver(validationSchema),
 		shouldFocusError: true,
@@ -76,10 +77,25 @@ const MuiForm = () => {
 				<Controller
 					name='doj'
 					control={control}
-					render={({ field, fieldState: { invalid, error } }) => (
+					render={({ field: { onBlur, ref, ...rest }, fieldState: { invalid, error } }) => (
 						<FormControl error={invalid} variant='outlined'>
-							<FormLabel required>Choose DOJ</FormLabel>
-							<DateCalendar {...field} disableFuture />
+							{/* <FormLabel required>Choose DOJ</FormLabel> */}
+							{/* <DateCalendar {...field} disableFuture /> */}
+							<DatePicker
+								label='Choose DOJ'
+								{...rest}
+								disabled={false}
+								maxDate={dayjs('09/20/2023')}
+								slotProps={{
+									textField: {
+										readOnly: true,
+										required: true,
+										error: invalid,
+										onBlur,
+										ref
+									}
+								}}
+							/>
 							{error?.message && <FormHelperText>{error.message}</FormHelperText>}
 						</FormControl>
 					)}
