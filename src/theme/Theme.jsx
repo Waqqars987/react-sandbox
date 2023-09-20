@@ -15,6 +15,9 @@ const theme = createTheme({
 		fontFamily: ['Poppins', 'sans-serif'].join(','),
 		button: {
 			textTransform: 'none'
+		},
+		overline: {
+			textTransform: 'none'
 		}
 	},
 	components: {
