@@ -1,6 +1,9 @@
 import React, { useCallback, useMemo, useState, useRef } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-enterprise';
+import { Button } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { renderToStaticMarkup } from 'react-dom/server';
 
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
@@ -409,32 +412,67 @@ const Grid = () => {
 			athlete: 'Charles Suarez'
 		}
 	]);
-	const [columnDefs] = useState([
-		{ field: 'athlete' },
-		{ field: 'date', cellDataType: 'dateString', cellEditor: 'agDateStringCellEditor' }
-	]);
-	const defaultColDef = useMemo(() => {
-		return {
+	const [columnDefs] = useState([{ field: 'athlete' }, { field: 'date', cellDataType: 'dateString' }]);
+	const defaultColDef = useMemo(
+		() => ({
 			flex: 1,
-			suppressMenu: true,
 			editable: true,
 			sortable: true,
 			unSortIcon: true
-		};
+		}),
+		[]
+	);
+
+	const onGridReady = useCallback(() => {
+		console.clear();
 	}, []);
 
-	const onGridReady = useCallback(params => {
-		console.clear();
+	const getContextMenuItems = useCallback(params => {
+		console.log(params);
+		const result = [
+			{
+				name: 'Delete row',
+				action: () => {
+					window.alert('Alerting about ' + params.value);
+				},
+				disabled: false,
+				icon: renderToStaticMarkup(<DeleteIcon />),
+				tooltip: 'Delete row'
+			},
+			'separator',
+			'copy',
+			'copyWithHeaders',
+			'paste',
+			'separator',
+			'export',
+			'chartRange'
+		];
+
+		return result;
 	}, []);
 
 	return (
 		<>
+			<Button
+				variant='contained'
+				color='secondary'
+				onClick={() => {
+					const selectedRows = gridRef.current.api.getSelectedRows();
+					console.log('🚀 ~ <Buttonvariant ~ selectedRows:', selectedRows);
+				}}
+			>
+				Get Selected Rows
+			</Button>
+
 			<AgGridReact
 				rowData={rowData}
 				columnDefs={columnDefs}
 				defaultColDef={defaultColDef}
 				onGridReady={onGridReady}
-				suppressContextMenu
+				rowSelection='multiple'
+				enableRangeSelection={true}
+				enableRangeHandle={true}
+				enableCharts
 				ref={gridRef}
 				defaultCsvExportParams={{
 					exportedRows: 'all'
@@ -444,6 +482,12 @@ const Grid = () => {
 				}}
 				animateRows={true}
 				className='ag-theme-alpine'
+				onCellContextMenu={event => {
+					if (!event.node.isSelected()) {
+						event.node.setSelected(true, true);
+					}
+				}}
+				getContextMenuItems={getContextMenuItems}
 			/>
 		</>
 	);
