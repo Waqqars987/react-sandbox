@@ -418,7 +418,8 @@ const Grid = () => {
 			flex: 1,
 			editable: true,
 			sortable: true,
-			unSortIcon: true
+			unSortIcon: true,
+			filter: true
 		}),
 		[]
 	);
@@ -440,15 +441,26 @@ const Grid = () => {
 				tooltip: 'Delete row'
 			},
 			'separator',
-			'copy',
-			'copyWithHeaders',
-			'paste',
-			'separator',
-			'export',
-			'chartRange'
+			...params.defaultItems.slice(1)
 		];
 
 		return result;
+	}, []);
+
+	const getMainMenuItems = useCallback(params => {
+		console.log(params);
+		// switch (params.column.getId()) {
+		// 	case 'athlete':
+		// 		const athleteMenuItems = params.defaultItems.slice();
+		// 		athleteMenuItems.push({
+		// 			name: 'AG Grid Is Great',
+		// 			action: () => {
+		// 				console.log('AG Grid is great was selected');
+		// 			}
+		// 		});
+		// 		return athleteMenuItems;
+
+		return [{ name: 'Delete Column' }, ...params.defaultItems];
 	}, []);
 
 	return (
@@ -488,6 +500,7 @@ const Grid = () => {
 					}
 				}}
 				getContextMenuItems={getContextMenuItems}
+				getMainMenuItems={getMainMenuItems}
 			/>
 		</>
 	);
