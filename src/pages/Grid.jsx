@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useState, useRef } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-enterprise';
-import { Button } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { renderToStaticMarkup } from 'react-dom/server';
 
@@ -472,36 +472,38 @@ const Grid = () => {
 					const selectedRows = gridRef.current.api.getSelectedRows();
 					console.log('🚀 ~ <Buttonvariant ~ selectedRows:', selectedRows);
 				}}
+				sx={{ alignSelf: 'flex-start' }}
 			>
 				Get Selected Rows
 			</Button>
 
-			<AgGridReact
-				rowData={rowData}
-				columnDefs={columnDefs}
-				defaultColDef={defaultColDef}
-				onGridReady={onGridReady}
-				rowSelection='multiple'
-				enableRangeSelection={true}
-				enableRangeHandle={true}
-				enableCharts
-				ref={gridRef}
-				defaultCsvExportParams={{
-					exportedRows: 'all'
-				}}
-				defaultExcelExportParams={{
-					exportedRows: 'all'
-				}}
-				animateRows={true}
-				className='ag-theme-alpine'
-				onCellContextMenu={event => {
-					if (!event.node.isSelected()) {
-						event.node.setSelected(true, true);
-					}
-				}}
-				getContextMenuItems={getContextMenuItems}
-				getMainMenuItems={getMainMenuItems}
-			/>
+			<Box className='ag-theme-alpine' sx={{ flexGrow: 1 }} component='section'>
+				<AgGridReact
+					rowData={rowData}
+					columnDefs={columnDefs}
+					defaultColDef={defaultColDef}
+					onGridReady={onGridReady}
+					rowSelection='multiple'
+					enableRangeSelection={true}
+					enableCharts={true}
+					enableRangeHandle={true}
+					ref={gridRef}
+					defaultCsvExportParams={{
+						exportedRows: 'all'
+					}}
+					defaultExcelExportParams={{
+						exportedRows: 'all'
+					}}
+					animateRows={true}
+					onCellContextMenu={event => {
+						if (!event.node.isSelected()) {
+							event.node.setSelected(true, true);
+						}
+					}}
+					getContextMenuItems={getContextMenuItems}
+					getMainMenuItems={getMainMenuItems}
+				/>
+			</Box>
 		</>
 	);
 };

@@ -1,6 +1,10 @@
 html,
 body,
-#root,
-#main-content {
+#root {
 	height: 100%;
+}
+
+#root {
+	display: grid;
+	grid-template-rows: auto 1fr;
 }

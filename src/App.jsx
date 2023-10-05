@@ -1,7 +1,8 @@
 import { Outlet } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { Provider } from 'react-redux';
+import { Stack } from '@mui/material';
 
 import store from './store';
 import Navbar from './components/Navbar';
@@ -17,9 +18,9 @@ function App() {
 					<Navbar />
 
 					{/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
-					<main id='main-content' tabIndex={0}>
+					<Stack id='main-content' tabIndex={0} component='main' p={1}>
 						<Outlet />
-					</main>
+					</Stack>
 				</Theme>
 			</Provider>
 		</LocalizationProvider>

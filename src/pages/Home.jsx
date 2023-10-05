@@ -7,12 +7,7 @@ const Title = styled.h1`
 `;
 
 function Home() {
-	return (
-		<>
-			<Title tabIndex={0}>Home Page</Title>
-			<Title>Styled Component Example</Title>
-		</>
-	);
+	return <Title tabIndex={0}>Home Page</Title>;
 }
 
 export default Home;
