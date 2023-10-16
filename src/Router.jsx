@@ -1,5 +1,11 @@
 import React, { Suspense, lazy } from 'react';
-import { createBrowserRouter, createRoutesFromElements, Route, Outlet, Navigate } from 'react-router-dom';
+import {
+	createBrowserRouter,
+	createRoutesFromElements,
+	Route,
+	Outlet,
+	Navigate
+} from 'react-router-dom';
 
 import Home from './pages/Home';
 import JotaiExample from './pages/JotaiExample';
@@ -10,6 +16,7 @@ import AgGrid from './pages/Grid';
 import RHF from './pages/ReactHookForm';
 import MuiForm from './pages/MuiForm';
 import App from './App';
+import Shadow from './pages/Shadow';
 
 const Counter = lazy(() => import('./pages/Counter'));
 
@@ -45,9 +52,8 @@ export const Router = createBrowserRouter(
 			<Route path='/rhf' element={<RHF />} />
 			<Route path='/mui-form' element={<MuiForm />} />
 
-			<Route element={<RequireAuth isAuth={false} />}>
-				<Route path='/test-1' element={<h1>test 1</h1>} />
-				<Route path='/test-2' element={<h1>test 2</h1>} />
+			<Route element={<RequireAuth isAuth={true} />}>
+				<Route path='/shadow' element={<Shadow />} />
 			</Route>
 
 			<Route path='*' element={<h1>404</h1>} />
