@@ -3,16 +3,16 @@ import { createBrowserRouter, createRoutesFromElements, Route, Outlet } from 're
 import { LoginCallback, useOktaAuth } from '@okta/okta-react';
 import { toRelativeUrl } from '@okta/okta-auth-js';
 
-import Home from './pages/Home';
-import JotaiExample from './pages/JotaiExample';
-import Posts from './pages/Posts';
-import Post from './components/Post';
-import SearchParams from './pages/SearchParams';
-import AgGrid from './pages/Grid';
-import RHF from './pages/ReactHookForm';
-import MuiForm from './pages/MuiForm';
 import App from './App';
+import Home from './pages/Home';
+import Posts from './pages/Posts';
+import AgGrid from './pages/Grid';
 import Shadow from './pages/Shadow';
+import Post from './components/Post';
+import MuiForm from './pages/MuiForm';
+import RHF from './pages/ReactHookForm';
+import JotaiExample from './pages/JotaiExample';
+import SearchParams from './pages/SearchParams';
 
 const Counter = lazy(() => import('./pages/Counter'));
 
@@ -29,6 +29,15 @@ const RequireAuth = () => {
 		}
 	}, [oktaAuth, authState]);
 
+	useEffect(() => {
+		const getInfo = async () => {
+			const info = await oktaAuth.getUser();
+			console.log(info);
+		};
+
+		getInfo();
+	}, [oktaAuth]);
+
 	if (!authState || !authState?.isAuthenticated) {
 		return <h1>Authenticating...</h1>;
 	}
@@ -43,7 +52,12 @@ export const Router = createBrowserRouter(
 
 			<Route
 				path='/login/callback'
-				element={<LoginCallback loadingElement={<h1>Authenticating...</h1>} />}
+				element={
+					<LoginCallback
+						loadingElement={<h1>Loading...</h1>}
+						errorComponent={() => <h1>Error while authenticating</h1>}
+					/>
+				}
 			/>
 
 			<Route element={<RequireAuth />}>
