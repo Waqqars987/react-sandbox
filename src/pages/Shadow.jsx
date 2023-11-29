@@ -1,7 +1,7 @@
 import { useRef, useLayoutEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 
-import css from './shadow.scss';
+import css from './shadow.scss?inline';
 
 export const Box = () => {
 	return (
