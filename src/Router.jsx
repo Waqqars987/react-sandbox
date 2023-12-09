@@ -48,7 +48,8 @@ const RequireAuth = () => {
 export const Router = createBrowserRouter(
 	createRoutesFromElements(
 		<Route path='/' element={<App />}>
-			<Route index element={<Home />} />
+			{/* <Route index element={<Home />} /> */}
+			<Route index path=':id?/:uuid?' element={<Home />} />
 
 			<Route
 				path='/login/callback'
