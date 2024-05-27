@@ -45,6 +45,7 @@
 		"@vitejs/plugin-react-swc": "^3.7.0",
 		"eslint": "^8.57.0",
 		"eslint-config-react-app": "^7.0.1",
+		"eslint-plugin-react-compiler": "^0.0.0-experimental-c8b3f72-20240517",
 		"sass": "^1.77.2",
 		"vite": "^5.2.11"
 	},
@@ -55,7 +56,11 @@
 			"plugin:jsx-a11y/recommended"
 		],
 		"plugins": [
-			"jsx-a11y"
-		]
+			"jsx-a11y",
+			"eslint-plugin-react-compiler"
+		],
+		"rules": {
+			"react-compiler/react-compiler": "error"
+		}
 	}
 }
