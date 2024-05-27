@@ -12,7 +12,8 @@ const links = [
 	{ name: 'AG Grid', to: '/grid' },
 	{ name: 'RHF', to: '/rhf' },
 	{ name: 'MUI Form', to: '/mui-form' },
-	{ name: 'Shadow', to: '/shadow' }
+	{ name: 'Shadow', to: '/shadow' },
+	{ name: 'Test', to: '/test' }
 ];
 
 function Navbar() {
