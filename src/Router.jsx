@@ -13,10 +13,11 @@ import MuiForm from './pages/MuiForm';
 import RHF from './pages/ReactHookForm';
 import JotaiExample from './pages/JotaiExample';
 import SearchParams from './pages/SearchParams';
+import Test from './pages/Test';
 
 const Counter = lazy(() => import('./pages/Counter'));
 
-const RequireAuth = () => {
+export const RequireAuth = () => {
 	const { oktaAuth, authState } = useOktaAuth();
 
 	useEffect(() => {
@@ -61,35 +62,37 @@ export const Router = createBrowserRouter(
 				}
 			/>
 
-			<Route element={<RequireAuth />}>
-				<Route
-					path='/counter'
-					element={
-						<Suspense fallback='loading'>
-							<Counter />
-						</Suspense>
-					}
-				/>
-				<Route path='/posts' element={<Posts />}>
-					{/* <Route index element={<Posts />} /> */}
-					<Route path=':id' element={<Post />} />
-					<Route path='' element={<h2>Select a post</h2>} />
-				</Route>
-				<Route
-					path='/jotai'
-					element={
-						<Suspense fallback={<h2>Loading...</h2>}>
-							<JotaiExample />
-						</Suspense>
-					}
-				/>
-				<Route path='/search-params' element={<SearchParams />} />
-				<Route path='/grid' element={<AgGrid />} />
-				<Route path='/rhf' element={<RHF />} />
-				<Route path='/mui-form' element={<MuiForm />} />
-				<Route path='/shadow' element={<Shadow />} />
+			{/* <Route element={<RequireAuth />}> */}
+			<Route
+				path='/counter'
+				element={
+					<Suspense fallback='loading'>
+						<Counter />
+					</Suspense>
+				}
+			/>
+			<Route path='/posts' element={<Posts />}>
+				{/* <Route index element={<Posts />} /> */}
+				<Route path=':id' element={<Post />} />
+				<Route path='' element={<h2>Select a post</h2>} />
 			</Route>
+			<Route
+				path='/jotai'
+				element={
+					<Suspense fallback={<h2>Loading...</h2>}>
+						<JotaiExample />
+					</Suspense>
+				}
+			/>
+			<Route path='/search-params' element={<SearchParams />} />
+			<Route path='/rhf' element={<RHF />} />
+			<Route path='/mui-form' element={<MuiForm />} />
+			<Route path='/shadow' element={<Shadow />} />
+			{/* </Route> */}
 
+			<Route path='/grid' element={<AgGrid />} />
+
+			<Route path='/test' element={<Test />} />
 			<Route path='*' element={<h1>404</h1>} />
 		</Route>
 	)
