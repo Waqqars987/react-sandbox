@@ -15,5 +15,9 @@ export default defineConfig({
 		port: 3000,
 		strictPort: true
 	},
+	build: {
+		assetsDir: '',
+		outDir: 'build'
+	},
 	plugins: [fullReload('public/**/*'), eslint(), react()]
 });
