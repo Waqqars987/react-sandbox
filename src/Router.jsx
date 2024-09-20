@@ -8,12 +8,13 @@ import Home from './pages/Home';
 import Posts from './pages/Posts';
 import AgGrid from './pages/Grid';
 import Shadow from './pages/Shadow';
+import Query1 from './pages/Query1';
+import Query2 from './pages/Query2';
 import Post from './components/Post';
 import MuiForm from './pages/MuiForm';
 import RHF from './pages/ReactHookForm';
 import JotaiExample from './pages/JotaiExample';
 import SearchParams from './pages/SearchParams';
-import Test from './pages/Test';
 
 const Counter = lazy(() => import('./pages/Counter'));
 
@@ -92,7 +93,8 @@ export const Router = createBrowserRouter(
 
 			<Route path='/grid' element={<AgGrid />} />
 
-			<Route path='/test' element={<Test />} />
+			<Route path='/query-1' element={<Query1 />} />
+			<Route path='/query-2' element={<Query2 />} />
 			<Route path='*' element={<h1>404</h1>} />
 		</Route>
 	)

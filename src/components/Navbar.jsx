@@ -13,7 +13,8 @@ const links = [
 	{ name: 'RHF', to: '/rhf' },
 	{ name: 'MUI Form', to: '/mui-form' },
 	{ name: 'Shadow', to: '/shadow' },
-	{ name: 'Test', to: '/test' }
+	{ name: 'Query 1', to: '/query-1' },
+	{ name: 'Query 2', to: '/query-2' }
 ];
 
 function Navbar() {
